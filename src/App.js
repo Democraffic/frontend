@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Redirect,
@@ -15,10 +15,50 @@ import Login from 'views/Login'
 import Navbar from "Navbar"
 import Sidebar from "Sidebar"
 
+import { get } from "utils"
+
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [userData, setUserData] =  useState({})
   const [position, setPosition] = useState(null)
+  const [reports, setReports] = useState([])
+  const [tick, setTick] = useState(0)
+
+
+    const updateTick = async () => {
+      setTick(tick => tick + 1)
+    }
+
+    useEffect(async () => {
+      updateTick()
+      const interval = setInterval(updateTick, 5000)
+      return () => clearInterval(interval)
+    }, [])
+
+    useEffect(async () => {
+      const data = await get('/api/reports')
+      if (data.length != reports.length) {
+        setReports(data)
+      }
+    }, [tick])
+
+
+
+    // const updateReports = async () => {
+    //   const data = await get('/api/reports')
+    //   setReports((prev) => {
+    //     if (prev != data)
+
+    //   }
+    //   console.log(data)
+    // }
+
+    // useEffect(async () => {
+    //   updateReports()
+    //   const interval = setInterval(updateReports, 5000)
+    //   return () => clearInterval(interval)
+    // }, [])
+
 
   return (
     <AppContext.Provider value={{
@@ -28,7 +68,9 @@ function App() {
       userData,
       setUserData,
       position,
-      setPosition
+      setPosition,
+      reports,
+      setReports
     }}>
       <div className="App w-full h-full bg-indigo-210 relative">
         <div className="flex h-full flex-col m-0 p-0">

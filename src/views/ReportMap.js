@@ -13,13 +13,6 @@ const containerStyle = {
 };
 
 
-const markersCenter = [48.2096787, 11.5642896];
-const markers = new Array(10).fill(0).map((_, index) => ({
-  lat: markersCenter[0] + Math.random() * 0.001,
-  lng: markersCenter[1] + Math.random() * 0.001,
-}));
-
-
 const ReportMap = () => {
 
   const [popupMounted, setPopupMouted] = useState(false)
@@ -28,7 +21,7 @@ const ReportMap = () => {
     googleMapsApiKey: "AIzaSyC60EX4zG8_9ZqhdLS27u-MusQ_MrrE82Q"
   });
 
-  const { position, setPosition } = useAppContext()
+  const { position, setPosition, reports } = useAppContext()
 
   useEffect(() => {
     const watchPositionId = navigator.geolocation.watchPosition(
@@ -60,14 +53,13 @@ const ReportMap = () => {
           >
             <Marker icon="https://www.robotwoods.com/dev/misc/bluecircle.png" position={{ lat: position.latitude, lng: position.longitude }} />
 
-            {markers.map(marker => (
+            {reports.map(report => (
               <Marker
-                key={marker.lat}
-                position={marker}
+                key={report._id}
+                position={{ lat: report.coordinates[0].latitude, lng: report.coordinates[0].longitude }}
               />
             ))
             }
-
 
             <Circle
               center={{ lat: position.latitude, lng: position.longitude }}
