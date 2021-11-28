@@ -16,3 +16,15 @@ export const post = async (path, data) => {
   const resp = await fetch(API + path, requestOptions)
   return resp.json()
 }
+
+
+export const postFoto = async (file, id) => {
+  const formData = new FormData();
+  formData.append("media", file);
+  const requestOptions = {
+    method: 'POST',
+    body: formData
+  };
+  const resp = await fetch(API + `/api/reports/${id}/media`, requestOptions)
+  return resp.json()
+}

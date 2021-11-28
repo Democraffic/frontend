@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import { ImCross } from 'react-icons/im'
 import { useAppContext } from "AppContext"
 
-import { post } from "utils"
+import { post, postFoto } from "utils"
 
-const UploadAndDisplayImage = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-
+const UploadAndDisplayImage = ({
+  selectedImage,
+  setSelectedImage
+}) => {
   return (
     <div>
       <input
@@ -20,7 +21,7 @@ const UploadAndDisplayImage = () => {
       />
 
       {selectedImage && (
-        <div className="w-full p-3">
+        <div className="w-1/4 p-3">
           <img alt="not fount" width={"100%"} src={URL.createObjectURL(selectedImage)} />
           <br />
           <button onClick={() => setSelectedImage(null)}>Remove</button>
@@ -39,6 +40,8 @@ const MapPopUp = ({ onClose }) => {
   const [solution, setSolution] = useState('')
   const [loading, setLoading] = useState(false)
 
+  const [selectedImage, setSelectedImage] = useState('')
+
   const onSubmit = async (e) => {
 
     setLoading(true)
@@ -49,6 +52,8 @@ const MapPopUp = ({ onClose }) => {
       coordinates: [{ latitude: position.latitude, longitude: position.longitude}],
       authorId: userData.username || 'testUser'
     })
+
+    const imageResp = postFoto(selectedImage, resp._id);
 
     console.log(resp)
     updateReports()
@@ -81,7 +86,7 @@ const MapPopUp = ({ onClose }) => {
           <input className="w-full text-lg py-2 text-gray-800 border-b border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="I have to walk for hours" onChange={(e) => setDesc(e.target.value)} />
 
           <div className="text-sm font-bold text-gray-700 tracking-wide">Upload Image</div>
-          <UploadAndDisplayImage />
+          <UploadAndDisplayImage selectedImage={selectedImage} setSelectedImage={setSelectedImage} />
 
           <div className="text-sm font-bold text-gray-700 tracking-wide">Propose a solution</div>
           <input className="w-full text-lg py-2 text-gray-800 border-b border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="Build one here please :)" onChange={(e) => setSolution(e.target.value)} />
