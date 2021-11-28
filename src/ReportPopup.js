@@ -3,16 +3,10 @@ import React, { useState } from 'react'
 import { ImCross } from 'react-icons/im'
 import { useAppContext } from "AppContext"
 
-import { post } from "utils"
 
 const ReportPopup = () => {
 
-  const { position, userData, updateReports, selectedReport, setSelectedReport } = useAppContext()
-
-  const [title, setTitle] = useState('')
-  const [desc, setDesc] = useState('')
-  const [solution, setSolution] = useState('')
-  const [loading, setLoading] = useState(false)
+  const { selectedReport, setSelectedReport } = useAppContext()
 
   return (
     <div className="absolute top-0 left-0 h-full w-full p-8 flex items-center justify-center rounded-md shadow-md z-40">
@@ -27,24 +21,10 @@ const ReportPopup = () => {
           </div>
         </div>
 
-        <div className="flex flex-col space-y-2 p-3">
+        <div className="flex flex-col space-y-2 p-3 justify-center">
           <p className="text-center text-xl text-indigo-800 font-semibold mb-3">{ selectedReport.title }</p>
-
-
-          <div className="text-sm font-bold text-gray-700 tracking-wide">Report Title</div>
-          <input className="w-full text-lg py-2 text-gray-800 border-b border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="Missing Bus Stop" onChange={(e) => setTitle(e.target.value)} />
-
-          <div className="text-sm font-bold text-gray-700 tracking-wide">Report Description</div>
-          <input className="w-full text-lg py-2 text-gray-800 border-b border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="I have to walk for hours" onChange={(e) => setDesc(e.target.value)} />
-
-          <div className="text-sm font-bold text-gray-700 tracking-wide">Upload Image</div>
-
-          <div className="text-sm font-bold text-gray-700 tracking-wide">Propose a solution</div>
-          <input className="w-full text-lg py-2 text-gray-800 border-b border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="Build one here please :)" onChange={(e) => setSolution(e.target.value)} />
-
-          <flex className="flex justify-center">
-            <div className="bg-indigo-700 text-lg text-center rounded-md shadow-md px-3 py-2">Report</div>
-          </flex>
+          <p className="text-center text-lg text-gray-800 font-semibold mb-3">{selectedReport.description}</p>
+          {selectedReport.media.length && <img className="w-3/4" src={selectedReport.media[0]} />}
         </div>
 
       </div>
