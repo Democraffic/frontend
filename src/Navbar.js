@@ -19,7 +19,6 @@ const Navbar = () => {
           Democraffic
         </div>
       </div>
-
     </div>
   )
 }

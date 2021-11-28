@@ -18,6 +18,7 @@ import Sidebar from "Sidebar"
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [userData, setUserData] =  useState({})
+  const [position, setPosition] = useState(null)
 
   return (
     <AppContext.Provider value={{
@@ -25,7 +26,9 @@ function App() {
       sidebarOpen,
       setSidebarOpen,
       userData,
-      setUserData
+      setUserData,
+      position,
+      setPosition
     }}>
       <div className="App w-full h-full bg-indigo-210 relative">
         <div className="flex h-full flex-col m-0 p-0">
