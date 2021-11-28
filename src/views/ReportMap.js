@@ -12,6 +12,13 @@ const containerStyle = {
   height: '100%',
 };
 
+const colorMap = {
+  proposed: 'red',
+  considered: 'yellow',
+  implementing: 'blue',
+  implemented: 'green'
+}
+
 
 const ReportMap = () => {
 
@@ -26,7 +33,6 @@ const ReportMap = () => {
   useEffect(() => {
     const watchPositionId = navigator.geolocation.watchPosition(
       position => {
-        console.log(position.coords)
         setPosition(position.coords);
       },
       error => {
@@ -55,6 +61,7 @@ const ReportMap = () => {
 
             {reports.map(report => (
               <Marker
+                icon={`https://maps.google.com/mapfiles/ms/icons/${colorMap[report.status]}-dot.png` }
                 key={report._id}
                 position={{ lat: report.coordinates[0].latitude, lng: report.coordinates[0].longitude }}
               />

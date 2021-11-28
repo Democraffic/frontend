@@ -47,7 +47,7 @@ const MapPopUp = ({ onClose }) => {
       title,
       description: desc,
       coordinates: [{ latitude: position.latitude, longitude: position.longitude}],
-      authorId: userData.username
+      authorId: userData.username || 'testUser'
     })
 
     console.log(resp)
