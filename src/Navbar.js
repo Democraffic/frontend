@@ -16,7 +16,7 @@ const Navbar = () => {
       </button >
       <div className="ml-2">
         <div className="font-bold text-2xl">
-          {`Democraffic ${position?.coords} `}
+          {`Democraffic`}
         </div>
       </div>
     </div>

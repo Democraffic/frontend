@@ -23,7 +23,7 @@ function App() {
   const [position, setPosition] = useState(null)
   const [reports, setReports] = useState([])
   const [tick, setTick] = useState(0)
-
+  const [selectedReport, setSelectedReport] = useState(null)
 
     const updateTick = async () => {
       setTick(tick => tick + 1)
@@ -35,30 +35,14 @@ function App() {
       return () => clearInterval(interval)
     }, [])
 
-    useEffect(async () => {
+    const updateReports = async () => {
       const data = await get('/api/reports')
       if (data.length != reports.length) {
         setReports(data)
       }
-    }, [tick])
+    }
 
-
-
-    // const updateReports = async () => {
-    //   const data = await get('/api/reports')
-    //   setReports((prev) => {
-    //     if (prev != data)
-
-    //   }
-    //   console.log(data)
-    // }
-
-    // useEffect(async () => {
-    //   updateReports()
-    //   const interval = setInterval(updateReports, 5000)
-    //   return () => clearInterval(interval)
-    // }, [])
-
+    useEffect(updateReports, [tick])
 
   return (
     <AppContext.Provider value={{
@@ -70,7 +54,10 @@ function App() {
       position,
       setPosition,
       reports,
-      setReports
+      setReports,
+      updateReports,
+      selectedReport,
+      setSelectedReport
     }}>
       <div className="App w-full h-full bg-indigo-210 relative">
         <div className="flex h-full flex-col m-0 p-0">

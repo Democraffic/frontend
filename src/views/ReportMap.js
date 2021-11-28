@@ -6,6 +6,7 @@ import { GoogleMap, useJsApiLoader, Marker, Circle } from '@react-google-maps/ap
 import MapPopUp from 'MapPopUp';
 import { useAppContext } from 'AppContext';
 
+import ReportPopup from 'ReportPopup';
 
 const containerStyle = {
   width: '100%',
@@ -19,7 +20,6 @@ const colorMap = {
   implemented: 'green'
 }
 
-
 const ReportMap = () => {
 
   const [popupMounted, setPopupMouted] = useState(false)
@@ -28,7 +28,7 @@ const ReportMap = () => {
     googleMapsApiKey: "AIzaSyC60EX4zG8_9ZqhdLS27u-MusQ_MrrE82Q"
   });
 
-  const { position, setPosition, reports } = useAppContext()
+  const { position, setPosition, reports, selectedReport, setSelectedReport } = useAppContext()
 
   useEffect(() => {
     const watchPositionId = navigator.geolocation.watchPosition(
@@ -49,6 +49,10 @@ const ReportMap = () => {
       {popupMounted && <MapPopUp onClose={() => setPopupMouted(false)} />}
 
 
+      {selectedReport && <div className="absolute top-0 left-0 h-full w-full items-center flex py-12 z-30 justify-items rounded-sm shadow-sm bg-gray-800 opacity-70"></div>}
+      {selectedReport && <ReportPopup  />}
+
+
       {isLoaded && position?.latitude && position?.longitude ? (
         <div className="h-full w-full">
           <GoogleMap
@@ -64,6 +68,7 @@ const ReportMap = () => {
                 icon={`https://maps.google.com/mapfiles/ms/icons/${colorMap[report.status]}-dot.png` }
                 key={report._id}
                 position={{ lat: report.coordinates[0].latitude, lng: report.coordinates[0].longitude }}
+                onClick={() => setSelectedReport(report)}
               />
             ))
             }
