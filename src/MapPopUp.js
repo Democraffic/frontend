@@ -32,7 +32,7 @@ const UploadAndDisplayImage = () => {
 
 const MapPopUp = ({ onClose }) => {
 
-  const { position, userData } = useAppContext()
+  const { position, userData } = useAppContext({ username: 'testuser'})
 
   const [title, setTitle] = useState('')
   const [desc, setDesc] = useState('')
@@ -46,11 +46,11 @@ const MapPopUp = ({ onClose }) => {
     const resp = await post('/api/reports', {
       title,
       description: desc,
-      coordinates: [position],
+      coordinates: [{ latitude: position.latitude, longitude: position.longitude}],
       authorId: userData.username
     })
 
-    console.log(response)
+    console.log(resp)
     setLoading(false)
     onClose()
   }

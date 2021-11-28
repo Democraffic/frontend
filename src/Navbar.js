@@ -3,7 +3,7 @@ import React from 'react'
 import { useAppContext } from "AppContext"
 
 const Navbar = () => {
-  const { sidebarOpen, setSidebarOpen } = useAppContext()
+  const { sidebarOpen, setSidebarOpen, position } = useAppContext()
 
   return (
     <div className="h-14 bg-indigo-600 shadow-xl flex items-center">
@@ -16,7 +16,7 @@ const Navbar = () => {
       </button >
       <div className="ml-2">
         <div className="font-bold text-2xl">
-          Democraffic
+          {`Democraffic ${position?.coords} `}
         </div>
       </div>
     </div>
