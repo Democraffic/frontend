@@ -57,7 +57,7 @@ const Login = () => {
                   <div>
                     <a className="text-xs font-display font-semibold text-indigo-600 hover:text-indigo-800 cursor-pointer">
                       Forgot Password?
-                    </a>
+                  </a>
                   </div>
                 </div>
                 <input className="w-full text-lg py-2 text-gray-800 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="password" placeholder="Enter your password"
