@@ -91,9 +91,9 @@ const MapPopUp = ({ onClose }) => {
           <div className="text-sm font-bold text-gray-700 tracking-wide">Propose a solution</div>
           <input className="w-full text-lg py-2 text-gray-800 border-b border-gray-300 focus:outline-none focus:border-indigo-500" placeholder="Build one here please :)" onChange={(e) => setSolution(e.target.value)} />
 
-          <flex className="flex justify-center">
+          <div className="flex justify-center">
             <div className="bg-indigo-700 text-lg text-center rounded-md shadow-md px-3 py-2" onClick={onSubmit}>Report</div>
-          </flex>
+          </div>
 
 
         </div>
