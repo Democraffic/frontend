@@ -38,11 +38,6 @@ const ReportMap = () => {
     const watchPositionId = navigator.geolocation.watchPosition(
       position => {
         setPosition(position.coords);
-
-        const lat = position.coords.latitude
-        const lng = position.coords.longitude
-        setCenter({ lat, lng });
-        setLoading(false)
       },
       error => {
         console.error(error);
@@ -51,11 +46,18 @@ const ReportMap = () => {
     return () => navigator.geolocation.clearWatch(watchPositionId);
   }, []);
 
+  useEffect(() => {
+    if (!loading || !position?.latitude) return
+    const lat = position.latitude
+    const lng = position.longitude
+    setCenter({ lat, lng });
+    setLoading(false)
+  }, [position])
+
 
   const handleCenter = () => {
     if (!mapRef.current) return;
     const newPos = mapRef.current.getCenter().toJSON();
-    console.log(newPos)
     setCenter(newPos);
   }
 

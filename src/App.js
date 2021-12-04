@@ -25,9 +25,7 @@ function App() {
   const [tick, setTick] = useState(0)
   const [selectedReport, setSelectedReport] = useState(null)
 
-    const updateTick = async () => {
-      setTick(tick => tick + 1)
-    }
+    const updateTick = () => setTick((t) => t + 1)
 
     useEffect(async () => {
       updateTick()
@@ -35,14 +33,14 @@ function App() {
       return () => clearInterval(interval)
     }, [])
 
-    // const updateReports = async () => {
-    //   const data = await get('/api/reports')
-    //   if (data.length != reports.length) {
-    //     setReports(data)
-    //   }
-    // }
+    const updateReports = async () => {
+      const data = await get('/api/reports')
+      if (data.length != reports.length) {
+        setReports(data)
+      }
+    }
 
-    // useEffect(updateReports, [tick])
+    useEffect(updateReports, [tick])
 
   return (
     <AppContext.Provider value={{
@@ -55,7 +53,7 @@ function App() {
       setPosition,
       reports,
       setReports,
-      // updateReports,
+      updateReports,
       selectedReport,
       setSelectedReport
     }}>
